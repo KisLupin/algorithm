@@ -1,14 +1,13 @@
-package struct_data.dfs;
+package struct_data.graph;
 
-public class Graph {
-
+public class GraphBfs {
     private final int Max_Verts = 20;
     private Vertex[] vertes;
     private int[][] adjMat;
     private int nVerts;
-    private StackX theStack;
+    private Queue theQueue;
 
-    public Graph(){
+    public GraphBfs(){
         vertes = new Vertex[Max_Verts];
         adjMat = new int[Max_Verts][Max_Verts];
         nVerts = 0;
@@ -17,7 +16,7 @@ public class Graph {
                 adjMat[i][j] = 0;
             }
         }
-        theStack = new StackX();
+        theQueue = new Queue();
     }
 
     public void addVertex(char lab) {
@@ -33,17 +32,17 @@ public class Graph {
         System.out.println(vertes[v].label);
     }
 
-    public void dfs(){
+    public void bfs(){
         vertes[0].wasVisited = true;
         displayVertex(0);
-        theStack.push(0);
-        while (!theStack.isEmpty()){
-            int v = getAdjUnvisitedVertex(theStack.peek());
-            if (v == -1)theStack.pop();
-            else {
-                vertes[v].wasVisited = true;
-                displayVertex(v);
-                theStack.push(v);
+        theQueue.insert(0);
+        int v2;
+        while (!theQueue.isEmpty()){
+            int v1 = theQueue.remove();
+            while ((v2 = getAdjUnvisitedVertex(v1)) != -1){
+                vertes[v2].wasVisited = true;
+                displayVertex(v2);
+                theQueue.insert(v2);
             }
         }
         for (int i = 0; i < nVerts; i++) {

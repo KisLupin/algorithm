@@ -1,4 +1,4 @@
-package struct_data.dfs;
+package struct_data.graph;
 
 public class Vertex {
     public char label;
